@@ -39,7 +39,8 @@ def fib_last_digit(n: int) -> int:
 
     return b
 
-# find
+
+# найти остаток от деления n числа фиб на m
 def fib_mod(n: int, m: int) -> int:
     rem = [0, 1]
 
@@ -51,9 +52,11 @@ def fib_mod(n: int, m: int) -> int:
 
     return rem.pop()
 
+
 if __name__ == "__main__":
     n, m = [int(i) for i in input().split()]
     # n, m = 10**12, 10**3
     
     # print(fib_vars(n))
     print(fib_mod(n, m))
+    
