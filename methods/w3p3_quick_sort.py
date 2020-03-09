@@ -97,5 +97,38 @@ def main():
     print(*find_intersec(start, end, points))
 
 
+def count_inters(intervals, n_points):
+    intervals = quick_sort_naive(intervals)  # O(nlogn)
+    res = [0] * n_points
+
+    open_count = 0
+    for p in intervals:  # O(n + m)
+        if p[1] == -1:
+            open_count += 1
+        elif p[1] == 1:
+            open_count -= 1
+        else:
+            res[p[2]] = open_count
+
+    return res  # O(nlogn + (n + m)) = O(nlogn)
+
+def main2():
+    # simpler solution - all in one list -> sort -> count start - end - nlogn
+    n, m = map(int, input().split())
+
+    intervals = []
+    for i in range(0, n):  # O(n)
+        l, r = map(int, input().split())
+        intervals.append((l, -1))
+        intervals.append((r, 1))
+
+    points = list(map(int, input().split()))  # O(m)
+    for i in range(m):  # O(m)
+        intervals.append((points[i], 0, i)) 
+
+    counts = count_inters(intervals, m)  # O(nlogn)
+    print(*counts)
+
+
 if __name__ == "__main__":
-    main()
+    main2()
