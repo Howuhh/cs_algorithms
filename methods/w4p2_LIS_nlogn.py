@@ -1,5 +1,6 @@
 from math import inf
 
+
 # https://strncat.github.io/jekyll/update/2019/06/25/longest-increasing-subsequence.html
 def lis_nlogn(seq):
     k, M = 1, [-1] + [inf] * len(seq)
@@ -50,7 +51,6 @@ def test():
     # test = [-9, -8, -7, -7, 2, 3, 5, -6]
     # test1 = [1, 1, 1, 1]
     # test_lis = [3, 8, 1, 2, 7, 9, 6, 4, 5]
-    r = len(test)
 
     k, idxs = lis_nlogn(test)
     print(k)
@@ -59,5 +59,4 @@ def test():
 
 if __name__ == "__main__":
     # test()
-    # main()
     main_stepick()
