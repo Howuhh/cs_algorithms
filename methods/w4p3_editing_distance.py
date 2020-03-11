@@ -1,5 +1,6 @@
 from math import inf
 
+
 def print_array(array):
     for row in array:
         print(row)
@@ -14,11 +15,11 @@ def levenshtein_dist(seq1, seq2, return_d=False):
     n, m = len(seq1) + 1, len(seq2) + 1
     D = [[0] * m for _ in range(n)]
 
-    # rows
+    # rows init
     for i in range(n):
         D[i][0] = i
-    
-    # cols
+
+    # cols init
     for j in range(m):
         D[0][j] = j
 
@@ -46,7 +47,7 @@ def levenshtein_dist_rec(seq1, seq2, i=None, j=None):
         i, j = n - 1, m - 1
 
     if D[i][j] == inf:
-        if i == 0:
+        if i == 0:  # min(i, j) == 0 -> D[i, j] = max(i, j)
             D[i][j] = j
         elif j == 0:
             D[i][j] = i
@@ -90,11 +91,11 @@ def main():
     seq1, seq2 = input(), input()
 
     dist, D = levenshtein_dist(seq1, seq2, True)
-    ans1, ans2 = backtrack_edit(D, seq1, seq2) 
-    
+    ans1, ans2 = backtrack_edit(D, seq1, seq2)
+
     print(ans1)
     print(ans2)
 
 
 if __name__ == "__main__":
-    main() 
+    main()
