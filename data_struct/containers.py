@@ -122,48 +122,48 @@ class QueueWithArray:
         self.queue = [None] * self.size
         self._len = 0
 
-        self.front, self.back = -1, -1
+        self._front, self._back = -1, -1
 
     def pushBack(self, key):
-        if (self.back + 1) % self.size == self.front:
+        if (self._back + 1) % self.size == self._front:
             raise IndexError("queue is full")
 
         # empty queue
-        if self.front == -1:
-            self.front = 0
-            self.back = 0
+        if self._front == -1:
+            self._front = 0
+            self._back = 0
         else:
-            self.back = (self.back + 1) % self.size
+            self._back = (self._back + 1) % self.size
         
         self._len = self._len + 1
-        self.queue[self.back] = key
+        self.queue[self._back] = key
             
     def popFront(self):
-        if self.front == -1:
+        if self._front == -1:
             raise IndexError("queue is empty")
         
         # one element -> to the empty queue 
-        if self.back == self.front:
-            value = self.queue[self.front]
-            self.queue[self.front] = None
+        if self._back == self._front:
+            value = self.queue[self._front]
+            self.queue[self._front] = None
 
-            self.back = -1
-            self.front = -1
+            self._back = -1
+            self._front = -1
             self._len = 0
         else:
-            value = self.queue[self.front]
-            self.queue[self.front] = None
+            value = self.queue[self._front]
+            self.queue[self._front] = None
 
             self._len = self._len - 1
-            self.front = (self.front + 1) % self.size
+            self._front = (self._front + 1) % self.size
 
         return value
 
-    def getBack(self):
-        return self.queue[self.back]
+    def back(self):
+        return self.queue[self._back]
 
-    def getFront(self):
-        return self.queue[self.front]
+    def front(self):
+        return self.queue[self._front]
 
     def len(self):
         return self._len
