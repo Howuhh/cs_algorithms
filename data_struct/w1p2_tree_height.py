@@ -1,11 +1,12 @@
 import sys
 
-from containers import QueueWithArray
+from containers.queue import QueueWithArray
 
 
 def children(node, adjency):
     children_ = adjency[node] if adjency[node] else []
     return children_
+
 
 # deque instead my implementation also good
 def tree_height_queue(root, adjency):
@@ -26,6 +27,7 @@ def tree_height_queue(root, adjency):
 
     return height
 
+
 # not optimal
 def tree_height(root, adjency):
 
@@ -42,6 +44,7 @@ def tree_height(root, adjency):
 
 
 def process_tree(arr_tree):
+    "build tree adjency list"
     root = None
     adjency = [[] for _ in range(len(arr_tree))]  # O(n)
     

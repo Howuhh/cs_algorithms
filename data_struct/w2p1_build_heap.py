@@ -9,6 +9,8 @@ def children(node):
 def shift_down(heap, node, log):
     left, right = children(node)
 
+    # TODO: переписать короче - через left < size and heap[left] < heap[node]
+
     # heap bound check
     if left >= len(heap):
         return

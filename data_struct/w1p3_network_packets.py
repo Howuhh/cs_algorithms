@@ -1,9 +1,10 @@
 import sys
 
-from containers import QueueWithArray
+from containers.queue import QueueWithArray
 from collections import namedtuple
 
 packet_info = namedtuple("packet_info", ["id", "arrive_t", "process_t"])
+
 
 class Buffer:
     def __init__(self, size):
@@ -75,6 +76,7 @@ def main_simple():
             print(arrive)
         else:
             print(-1)
+
 
 if __name__ == "__main__":
     main_simple()

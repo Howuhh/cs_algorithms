@@ -1,7 +1,5 @@
-from containers import QueueWithStack
-from collections import deque
+from containers.stack import QueueWithStack
 
-from math import inf
 
 def window_max(w, arr):
     queue = QueueWithStack()

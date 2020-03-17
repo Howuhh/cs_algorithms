@@ -1,5 +1,5 @@
-import sys
-from containers import Stack
+from containers.stack import Stack
+
 
 def is_balanced(seq):
     stack = Stack()
@@ -35,8 +35,8 @@ def test():
     assert is_balanced("[][") == (False, 3)
     assert is_balanced("foo(bar[i);") == (False, 10)
     assert is_balanced("([]") == (False, 1)
-
     print("TESTS: OK")
+
 
 def main():
     string = input()

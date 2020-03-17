@@ -1,6 +1,7 @@
 import sys
 
-from containers import MaxStack, MinMaxStack
+from containers.stack import MinMaxStack
+
 
 def main():
     stack = MinMaxStack()
