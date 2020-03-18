@@ -10,6 +10,7 @@ def children(node, adjency):
 
 # deque instead my implementation also good
 def tree_height_queue(root, adjency):
+    # wow actually rediscover BFS 
     queue = QueueWithArray(size=len(adjency))
     queue.pushBack(root)
 
@@ -30,7 +31,7 @@ def tree_height_queue(root, adjency):
 
 # not optimal
 def tree_height(root, adjency):
-
+    # wow this is also DFS lol
     def _tree_height(node):
         height = 1
 
