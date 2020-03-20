@@ -1,23 +1,6 @@
 import sys
 
-
-class Map:
-    def __init__(self, size):
-        # simple direct access table
-        self.table = [None] * size
-        self.size = size
-
-    def _index(self, key):
-        return key % self.size
-
-    def update(self, key, value):
-        self.table[self._index(key)] = value
-
-    def get(self, key, *args):
-        return self.table[self._index(key)]
-
-    def remove(self, key, *args):
-        self.table[self._index(key)] = None
+from containers.map import DirectAccessMap
 
 
 class MapHandler:
@@ -48,7 +31,7 @@ class MapHandler:
 def main():
     n = int(input())
     size = 10**7
-    handler = MapHandler(Map(size))
+    handler = MapHandler(DirectAccessMap(size))
     
     [handler.process(tup.split()) for tup in sys.stdin]
 
