@@ -21,4 +21,16 @@ class Solution:
         curr.next = l1 or l2
 
         return merged.next
-        
+
+    def mergeTwoLists_rec(self, l1: ListNode, l2: ListNode) -> ListNode:
+        # base case: one list is empty
+        if not l1 or not l2:
+            return l1 or l2
+
+        # merge in order
+        if l1.val < l2.val:
+            l1.next = self.mergeTwoLists_rec(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists_rec(l1, l2.next)
+            return l2
