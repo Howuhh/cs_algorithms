@@ -13,8 +13,8 @@
 (3) Find all ... 
 - backtracking & recursion
 
-(4) 
-
+(4) Sorted (or some order) + find
+- sort of binary search
 
 
 # TODO topics 
