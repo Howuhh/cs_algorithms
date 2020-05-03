@@ -11,16 +11,16 @@ def poly_hash(S, p, a):
     return hash_value % p
 
 
-def search_pattern_test(text, pattern):
-    w = len(pattern)
-    p, a = 1000007, 34
+# def search_pattern_test(text, pattern):
+#     w = len(pattern)
+#     p, a = 1000007, 34
 
-    hash_values, pattern_hash = [], poly_hash(pattern, p, a)
+#     hash_values, pattern_hash = [], poly_hash(pattern, p, a)
 
-    for i in range(0, len(text) - w + 1):
-        hash_values.append((poly_hash(text[i: i + w], p, a), i))
+#     for i in range(0, len(text) - w + 1):
+#         hash_values.append((poly_hash(text[i: i + w], p, a), i))
 
-    print(pattern_hash, hash_values)
+#     print(pattern_hash, hash_values)
 
 
 def rolling_hash_search(text, pattern):
