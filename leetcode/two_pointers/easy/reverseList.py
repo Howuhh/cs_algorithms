@@ -10,6 +10,13 @@ class Solution:
         curr, prev = head, None
         
         while curr:
+            # next_node = curr.next
+
+            # curr.next = prev
+            # prev = curr
+            
+            # curr = next_node
+
             curr.next, prev, curr = prev, curr, curr.next
             
         return prev

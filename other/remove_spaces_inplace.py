@@ -3,7 +3,9 @@
 #  main idea: maintain space pointers and replace
 def remove_spaces(char_arr):  # O(n) and inplace
     space_idx = 0
-    for i in range(len(char_arr)):
+    char_arr = char_arr + [" "]
+
+    for i in range(0, len(char_arr)):
         if char_arr[i] != " ":
             char_arr[space_idx], char_arr[i] = char_arr[i], char_arr[space_idx]
             space_idx += 1
