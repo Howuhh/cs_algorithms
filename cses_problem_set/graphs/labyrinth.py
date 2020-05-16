@@ -1,87 +1,76 @@
 import sys
+import cProfile
 from time import time
 
 from pprint import pprint
 from collections import deque
 
+
 # TODO: TIME LIMIT on: 1000x1000, but also works tho
+# well, just python, nothing to upgrade really (exact same on c++ would work)
 def shortest_path(grid, shape, start):
     x, y = shape
+    
     visited = [[False] * y for _ in range(x)]
-    distance = [[0] * y for _ in range(x)]
     prev = [[None] * y for _ in range(x)]
 
-    def _negibors(i, j):
-        x_move = [-1, 1, 0, 0]
-        y_move = [0, 0, 1, -1]
-        label = ["U", "D", "R", "L"] 
-
-        for k in range(4):
-            ii = i + x_move[k]
-            jj = j + y_move[k]
-
-            if (ii < 0 or jj < 0) or (ii >= x or jj >= y) or (grid[ii][jj] == "#"):
-                continue
-            yield (ii, jj, label[k])
+    x_move = [-1, 1, 0, 0]
+    y_move = [0, 0, 1, -1]
+    label = ["U", "D", "R", "L"] 
 
     def _bfs_to_end(ni, nj):
         queue = deque([(ni, nj)])
         visited[ni][nj] = True
 
-        reached_target, target = False, (None, None)
-        while queue and not reached_target:
+        while queue:
             i, j = queue.pop()
 
-            for a, b, label in _negibors(i, j):
-                if visited[a][b]:
+            if grid[i][j] == "B":
+                path = ""
+                while (i, j) != start:
+                    i, j, move = prev[i][j]
+                    path += move
+                return path[::-1]
+
+            for k in range(4):
+                a, b = i + x_move[k], j + y_move[k]
+
+                if (a < 0 or b < 0) or (a >= x or b >= y) or (grid[a][b] == "#") or visited[a][b]:
                     continue
                 
                 visited[a][b] = True
-                distance[a][b] = distance[i][j] + 1
-                prev[a][b] = (i, j, label)
+                prev[a][b] = (i, j, label[k])
 
                 queue.appendleft((a, b))
-
-                if grid[a][b] == "B":
-                    reached_target, target = True, (a, b)
-        
-        return target
+        return None
     
-    tx, ty = _bfs_to_end(*start)
-    if not tx and not ty:
-        print("NO")
-        return
-
-    print("YES")
-    path, path_dist = [], distance[tx][ty]
-    while (tx, ty) != start:
-        tx, ty, label = prev[tx][ty]
-        path.append(label)
-
-    return path_dist, "".join(path[::-1])
+    path = _bfs_to_end(*start)
+    if path:
+        sys.stdout.write("YES\n")
+        sys.stdout.write(str(len(path)) + "\n")
+        sys.stdout.write(path + "\n")
+    else:
+        sys.stdout.write("NO")
 
 
 def main():
-    startt = time()
+    stime = time()
     n, m = map(int, sys.stdin.readline().split())
     grid = []
 
+    # pprint(start)
     for _ in range(n):
         grid.append(sys.stdin.readline())
-    print(time() - startt)
 
-    startt = time()
     start = None
     for i in range(n):
         for j in range(m):
             if grid[i][j] == "A":
                 start = (i, j)
-    print(time() - startt)
 
-    startt = time()
-    res = shortest_path(grid, (n, m), start)
-    if res: [print(arg) for arg in res]
-    print(time() - startt)
+    shortest_path(grid, (n, m), start)
+    print(time() - stime)
+
 
 if __name__ == "__main__":
     main()
