@@ -49,7 +49,7 @@ def main():
     for _ in range(n):
         row = sys.stdin.readline()
         grid.append(row)
-
+    print(grid)
     print(count_rooms(grid, (n, m)))
 
 

@@ -195,8 +195,8 @@ def floyd_warshall_path(adj_matrix):  # O(V^3)
             for j in range(n):
                 if dist[i][k] + dist[k][j] < dist[i][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
+                    # TODO: why next not prev? Is it possible to record prev node?
                     next_[i][j] = next_[i][k]
-                # dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
     return dist, next_
 
 
