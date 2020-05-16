@@ -215,6 +215,48 @@ def floyd_warshall_find(adj_matrix, start, end):
     return path
 
 
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.size = [1] * n
+
+    def Union(self, a, b):
+        parent_a, parent_b = self.Find(a), self.Find(b)
+    
+        # smaller to bigger
+        if self.size[parent_a] < self.size[parent_b]:
+            parent_a, parent_b = parent_b, parent_a
+
+        # b -> a (or a -> b)
+        self.parent[parent_b] = parent_a
+
+        self.size[parent_a] += self.size[parent_b]
+        self.size[parent_b] = 0
+
+    def Find(self, a):
+        if a != self.parent[a]:
+            self.parent[a] = self.Find(self.parent[a])
+
+        return self.parent[a]
+
+    def Same(self, a, b):
+        return self.Find(a) == self.Find(b)
+
+
+# Minimum spanning tree of the graph
+def kruskals_mst(nodes, edge_list):
+    union = UnionFind(len(nodes))
+    sorted_edges = sorted(edge_list, key=lambda tup: tup[2])
+
+    mst = []
+    for (a, b, w) in sorted_edges:
+        if not union.Same(a, b):
+            union.Union(a, b)            
+            mst.append([a, b, w])
+
+    return mst
+
+
 def test_traversal():
     test_graph = [None] * 8
 
@@ -240,15 +282,25 @@ def test_paths():
         [(1, 5), (3, 2)]
     ]
 
-    pprint(
-        floyd_warshall_find(
-            adjency_to_matrix(graph_adj, weights=True), 0, 2
-        )
-    )
-    pprint(dijkstra_path_find(graph_adj, 0, 2))
+
+    # pprint(
+    #     floyd_warshall_find(
+    #         adjency_to_matrix(graph_adj, weights=True), 0, 2
+    #     )
+    # )
+    # pprint(dijkstra_path_find(graph_adj, 0, 2))
 
     # graph_edges = adjency_to_edge_list(graph_adj, weights=True)
     # graph_nodes = list(range(len(graph_adj)))
+
+    kruskals_test = [
+        [0, 1, 10],
+        [0, 2, 6],
+        [0, 3, 5],
+        [1, 3, 15],
+        [2, 3, 4]
+    ]
+    assert kruskals_mst(list(range(4)), kruskals_test) == [[2, 3, 4], [0, 3, 5], [0, 1, 10]]
 
     # print(bellman_ford_path(graph_nodes, graph_edges, 0))
     # print(dijkstra_path_find(graph_adj, 0, 4))
