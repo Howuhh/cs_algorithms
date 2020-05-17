@@ -297,6 +297,17 @@ def print_matrix(matrix):
         print(row)
 
 
+def rle_encoding(string):
+    test = string + " "
+    point = 0
+    answ = []
+    for i in range(len(test)):
+        if test[i] != test[point]:
+            answ.append((test[point], abs(i - point)))
+            point = i
+    return answ
+
+
 def main():
     test = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 

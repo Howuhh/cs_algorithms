@@ -1,3 +1,4 @@
+# https://cses.fi/problemset/task/1193
 import sys
 import cProfile
 from time import time
@@ -7,35 +8,37 @@ from collections import deque
 
 
 # TODO: TIME LIMIT on: 1000x1000, but also works tho
-# well, just python, nothing to upgrade really (exact same on c++ would work)
+# well, just python, nothing to upgrade really (exact same on c++ would work), 2s time
 def shortest_path(grid, shape, start):
     x, y = shape
     
-    visited = [[False] * y for _ in range(x)]
-    prev = [[None] * y for _ in range(x)]
-
-    x_move = [-1, 1, 0, 0]
-    y_move = [0, 0, 1, -1]
-    label = ["U", "D", "R", "L"] 
-
     def _bfs_to_end(ni, nj):
+        visited = [[False] * y for _ in range(x)]
+        prev = [[None] * y for _ in range(x)]
+
         queue = deque([(ni, nj)])
         visited[ni][nj] = True
+        
+        x_move = [-1, 1, 0, 0]
+        y_move = [0, 0, 1, -1]
+        label = ["U", "D", "R", "L"] 
 
         while queue:
             i, j = queue.pop()
 
             if grid[i][j] == "B":
-                path = ""
+                # reconstruct path
+                path = []
                 while (i, j) != start:
                     i, j, move = prev[i][j]
-                    path += move
-                return path[::-1]
+                    path.append(move)
+                return "".join(path[::-1])
 
             for k in range(4):
                 a, b = i + x_move[k], j + y_move[k]
 
-                if (a < 0 or b < 0) or (a >= x or b >= y) or (grid[a][b] == "#") or visited[a][b]:
+                # check for bounds/# and visited
+                if (a < 0 or b < 0) or (a >= x or b >= y) or (grid[a][b] == "#") or visited[a][b] or prev[a][b]:
                     continue
                 
                 visited[a][b] = True
@@ -45,12 +48,13 @@ def shortest_path(grid, shape, start):
         return None
     
     path = _bfs_to_end(*start)
+
     if path:
         sys.stdout.write("YES\n")
         sys.stdout.write(str(len(path)) + "\n")
         sys.stdout.write(path + "\n")
     else:
-        sys.stdout.write("NO")
+        sys.stdout.write("NO\n")
 
 
 def main():
@@ -71,6 +75,6 @@ def main():
     shortest_path(grid, (n, m), start)
     print(time() - stime)
 
-
 if __name__ == "__main__":
-    main()
+    # main()
+    cProfile.run("main()")
