@@ -4,7 +4,7 @@ import cProfile
 from time import time
 
 from pprint import pprint
-from collections import deque
+from collections import deque, defaultdict
 
 
 # TODO: TIME LIMIT on: 1000x1000, but also works tho
@@ -62,7 +62,6 @@ def main():
     n, m = map(int, sys.stdin.readline().split())
     grid = []
 
-    # pprint(start)
     for _ in range(n):
         grid.append(sys.stdin.readline())
 
@@ -76,5 +75,5 @@ def main():
     print(time() - stime)
 
 if __name__ == "__main__":
-    # main()
-    cProfile.run("main()")
+    main()
+    # cProfile.run("main()")
