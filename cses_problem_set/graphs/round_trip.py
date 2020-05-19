@@ -2,31 +2,76 @@
 import sys
 from collections import deque
 
+
 # dont work yet!
 def detect_cicle(adj, n):
     visited = [False] * n
+    prev = [None] * n
 
+    # dfs in python not a good choice (rec limit)
     def _bfs(source):
-        queue = deque([(source, source)])
+        queue = deque([source])
         visited[source] = True
 
         while queue:
-            node, prev = queue.pop()
+            node = queue.pop()
 
             for neig in adj[node]:
-                if neig == source and prev != source:
-                    print("Cycle!")
-                    print(node, neig, neig == source, prev)
-                if visited[neig] or neig == node:
-                    continue
+                if visited[neig]:
+                    if neig == prev[node]:
+                        continue
+                    else:
+                        # if visited and not paret -> cycle (start, end)
+                        return (neig, node)
 
                 visited[neig] = True
-                queue.appendleft((neig, node))
-
+                prev[neig] = node
+                queue.appendleft(neig)
+               
+        return False
+    
+    # start bfs from every unvisited node
+    cycle = False
     for node in range(n):
         if visited[node]:
             continue
-        _bfs(node)
+        if cycle:
+            break
+        cycle = _bfs(node)
+    
+    # cycle path
+    if cycle:
+        start, end = cycle
+
+        path = deque()
+        while start is not None or end is not None:
+            print(start, end)
+            # if meeting point
+            if prev[start] is not None:
+                # if path[-1] != start:
+                path.append(start)
+                start = prev[start]
+            
+            if prev[end] is not None:
+                # if path[0] != end:
+                path.appendleft(end)
+                end = prev[end]
+               
+            if path[0] == path[-1]:
+                break
+
+            print(path)
+
+            # if from end/start path of same length
+            if start == end:
+                path.append(start)
+                path.appendleft(end)
+                break
+
+        print(len(path))
+        print(*[i + 1 for i in path])
+    else:
+        print("IMPOSSIBLE")
 
 
 def main():
