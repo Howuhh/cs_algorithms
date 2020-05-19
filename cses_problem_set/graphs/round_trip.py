@@ -45,28 +45,31 @@ def detect_cicle(adj, n):
 
         path = deque()
         while start is not None or end is not None:
-            print(start, end)
-            # if meeting point
             if prev[start] is not None:
-                # if path[-1] != start:
                 path.append(start)
                 start = prev[start]
-            
+
             if prev[end] is not None:
-                # if path[0] != end:
                 path.appendleft(end)
                 end = prev[end]
                
             if path[0] == path[-1]:
                 break
 
-            print(path)
-
-            # if from end/start path of same length
+            # # if from end/start path of same length
             if start == end:
                 path.append(start)
                 path.appendleft(end)
                 break
+        
+        # thhh, no one will see that!
+        start, end = 0, len(path) - 1
+        while path[start] == path[end]:
+            start += 1
+            end -= 1
+        start, end = start - 1, end + 1
+        
+        path = list(path)[start:end+1]
 
         print(len(path))
         print(*[i + 1 for i in path])
