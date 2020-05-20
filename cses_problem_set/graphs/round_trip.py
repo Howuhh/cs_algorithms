@@ -38,7 +38,7 @@ def detect_cicle(adj, n):
         if cycle:
             break
         cycle = _bfs(node)
-    
+
     # cycle path
     if cycle:
         start, end = cycle
@@ -62,7 +62,7 @@ def detect_cicle(adj, n):
                 path.appendleft(end)
                 break
         
-        # thhh, no one will see that!
+        # tssshhh, no one will see that!
         start, end = 0, len(path) - 1
         while path[start] == path[end]:
             start += 1
