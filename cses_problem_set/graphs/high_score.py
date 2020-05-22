@@ -1,6 +1,7 @@
 # https://cses.fi/problemset/task/1673
 from math import inf
 
+
 def bellman_ford_path(edge_list, n):
     distance = [inf] * n
 
