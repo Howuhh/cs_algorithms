@@ -28,6 +28,7 @@ class Solution:
         bitmasks = []
         power_set = []
         
+        # how to generate in loop ?
         def gen_masks(curr_mask=""):
             if len(curr_mask) == len(nums):
                 bitmasks.append(curr_mask)
