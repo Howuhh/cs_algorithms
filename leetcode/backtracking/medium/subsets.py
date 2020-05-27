@@ -25,20 +25,24 @@ class Solution:
         return power_set
 
     def subsets_bits(self, nums: List[int]) -> List[List[int]]:
-        bitmasks = []
-        power_set = []
+        power_set, n = [], len(nums)
+
+        for i in range(2**n, 2**(n + 1)):
+            mask = bin(i)[3:]
+
+            power_set.append([nums[i] for i in range(n) if mask[i] == "1"])
         
         # how to generate in loop ?
-        def gen_masks(curr_mask=""):
-            if len(curr_mask) == len(nums):
-                bitmasks.append(curr_mask)
-                return
+        # def gen_masks(curr_mask=""):
+        #     if len(curr_mask) == len(nums):
+        #         bitmasks.append(curr_mask)
+        #         return
                 
-            gen_masks(curr_mask + "0")
-            gen_masks(curr_mask + '1')
+        #     gen_masks(curr_mask + "0")
+        #     gen_masks(curr_mask + '1')
         
-        gen_masks()
-        for mask in bitmasks:
-            power_set.append([nums[i] for i in range(len(nums)) if mask[i] == "1"])
+        # gen_masks()
+        # for mask in bitmasks:
+        #     power_set.append([nums[i] for i in range(len(nums)) if mask[i] == "1"])
             
         return power_set
