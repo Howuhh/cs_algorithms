@@ -2,9 +2,9 @@
 
 Two courses from Computer Science Center.
 
-## (1) Methods
+## Methods
 
-## (2) Data structures
+## Data structures
 
 TODO: add all problem links
 
@@ -80,5 +80,6 @@ TODO: add all problem links and **solutions**
 
 # CSES Problem Set
 
+## Graphs
 TODO: add all problem links
 	
