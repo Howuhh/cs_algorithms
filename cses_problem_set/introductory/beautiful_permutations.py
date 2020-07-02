@@ -1,29 +1,4 @@
 
-# def permute(n):
-#     cands = range(1, n + 1)
-
-#     perms = []
-#     def _permute(perm, chosen):
-#         if len(perm) == len(cands):
-#             perms.append(perm)
-#             return True
-
-#         for i, num in enumerate(cands):
-#             if chosen[i]:
-#                 continue
-            
-#             if perm and abs(num - perm[-1]) == 1:
-#                 continue
-
-#             chosen[i] = True
-#             find = _permute(perm + [num], chosen)
-#             if find:
-#                 break
-#             chosen[i] = False
-
-#     _permute([], [False] * n)
-
-#     return perms
 
 def permute(n):
     if 1 < n <= 3:

@@ -1,18 +1,15 @@
 
 def num_knights(k):
-    total = k**2
-    
-    corner = 4 * (total - 4)
-    border = (k - 2) * 4 * (total - 6)
-    center = (k - 2)** 2 * (total - 9)
-    return (corner + border + center) // 2
+    kk = k**2
+    # how many 2x3 and 3x2 in kxk table?
+    return kk*(kk - 1)//2 - 4*(k - 2)*(k - 1)
 
 
 def main():
     n = int(input())
 
     for k in range(1, n + 1):
-        print(k, num_knights(k))
+        print(num_knights(k))
 
 
 if __name__ == "__main__":

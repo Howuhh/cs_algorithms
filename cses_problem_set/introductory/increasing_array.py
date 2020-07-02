@@ -5,7 +5,7 @@ def num_turns(nums):
     prev = 0
     for i in range(1, len(nums)):
         if nums[i] < (nums[i - 1] + prev):
-            diff = nums[i - 1] + prev - nums[i]
+            diff = (nums[i - 1] + prev) - nums[i]
 
             count += diff
             prev = diff
