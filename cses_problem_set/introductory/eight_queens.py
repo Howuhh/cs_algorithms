@@ -1,4 +1,3 @@
-from pprint import pprint
 
 
 def check_box(x, y, queens):
@@ -13,17 +12,17 @@ def check_box(x, y, queens):
 def count_queens(board):
     combs = []
 
-    def _count(y, queens):
+    def _count(col, queens):
         if len(queens) == 8:
             combs.append(queens)
             return
 
-        for i in range(8):
-            if not board[i][y] or not check_box(i, y, queens):
+        for row in range(8):
+            if not board[row][col] or not check_box(row, col, queens):
                 continue
 
-            new_queens = queens + [(i, y)]
-            _count(y + 1, new_queens)
+            new_queens = queens + [(row, col)]
+            _count(col + 1, new_queens)
 
     _count(0, [])
     return combs
