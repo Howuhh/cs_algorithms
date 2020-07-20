@@ -34,28 +34,6 @@ def give_tickets(prices, max_prices):  # O(n^2)
     return result
 
 
-def give_tickets_right(prices, max_prices):  # O(n^2)
-    sold = [False] * len(prices)
-    result = []
-
-    for max_ in max_prices:
-        idx = bisect_right(prices, max_)
-
-        if idx >= len(prices) or prices[idx] != max_:
-            idx = idx - 1
-
-        while idx > -1 and sold[idx]:
-            idx = idx - 1
-
-        if idx > -1:
-            result.append(prices[idx])
-            sold[idx] = True
-        else:
-            result.append(-1)
-
-    return result
-
-
 def main():
     n, m = map(int, input().split())
 
@@ -78,3 +56,39 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# TODO: solution from site 
+# import sys
+# import bisect
+
+# input = sys.stdin.readline
+# writer = sys.stdout.write
+# upper_bound = bisect.bisect_right
+
+# # TODO: how it works???
+# def main():
+#     n,m = map(int,input().split())
+    
+#     H = [int(x) for x in input().split()]
+#     H.sort()
+ 
+#     P = list(range(n+1))
+
+#     for t in sys.stdin.read().split():
+#         old_a = a = upper_bound(H, int(t))
+        
+#         while a != P[a]:
+#             a = P[a]
+
+#         while old_a != a:
+#             P[old_a], old_a = a, P[old_a]
+        
+#         if a:
+#             writer(str(H[a-1]))
+#             writer('\n')
+#             P[a] = a-1
+#         else:
+#             writer('-1\n')
+
+# if __name__ == "__main__":
+#     main()

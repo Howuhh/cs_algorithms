@@ -256,6 +256,8 @@ def kruskals_mst(nodes, edge_list):
 
     return mst
 
+# TODO: Prim's algo
+
 
 def test_traversal():
     test_graph = [None] * 8

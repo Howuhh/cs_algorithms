@@ -1,19 +1,19 @@
 
-# TODO: wrong answer
+
 def longest_playlist(songs):
-    series, max_count = dict(), 0
+    seen = {}
+    max_playlist = 0
 
-    count = 0
-    for idx, song in enumerate(songs):
-        if song in series:
-            count = abs(idx - series[song])
-        else:
-            count += 1
+    start = 0
+    for end, song in enumerate(songs):
+        if song in seen:
+            # start playlist from next char
+            start = max(start, seen[song] + 1)
         
-        series[song] = idx
-        max_count = max(max_count, count)
+        seen[song] = end
+        max_playlist = max(max_playlist, end - start + 1)
 
-    return max_count
+    return max_playlist
             
 
 def main():

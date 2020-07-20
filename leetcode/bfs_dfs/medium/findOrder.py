@@ -10,27 +10,30 @@ class Solution:
         adj, _ = self.edges_to_adj(prerequisites, numCourses)
         
         visited = [0] * numCourses
-        topsort = deque()
+        topsort = []
 
-        def _dfs(node, cycle):
+        cycle = False
+        def _dfs(node):
+            nonlocal cycle
+
+            if cycle: 
+                return
+
             visited[node] = 1
-
             for neig in adj[node]:
-                if visited[neig] == 0:
-                    cycle = _dfs(neig, cycle)
-                elif visited[neig] == 1:
+                if visited[neig] == 1:
                     cycle = True
+                elif visited[neig] == 0:
+                    _dfs(neig)
 
             visited[node] = 2
             topsort.append(node)
-            return cycle 
 
         for node in range(numCourses):
             if not visited[node]:
-                if _dfs(node, False):
-                    return []
+                _dfs(node)
                 
-        return list(topsort)
+        return topsort[::-1] if not cycle else []
 
     def edges_to_adj(self, edges, n):
         adj = [[] for _ in range(n)]
