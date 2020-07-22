@@ -9,11 +9,14 @@ class Solution:
 
         max_sum = D[0]
         for n in range(1, len(nums)):
-            if D[n - 1] + nums[n] > nums[n]:
-                D[n] = D[n - 1] + nums[n]
+            D[n] = max(D[n - 1] + nums[n], nums[n])
+            max_sum = max(max_sum, D[n])
             
-            if D[n] >= max_sum:
-                max_sum = D[n]
+            # if D[n - 1] + nums[n] > nums[n]:
+            #     D[n] = D[n - 1] + nums[n]
+            
+            # if D[n] >= max_sum:
+            #     max_sum = D[n]
                 
         return max_sum
 
