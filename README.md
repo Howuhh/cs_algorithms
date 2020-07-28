@@ -1,14 +1,16 @@
-# Stepick Algorithms: theory and practice. 
+# CS problems solutions 
 
-Two courses from Computer Science Center.
+<!-- # Stepick Algorithms: theory and practice.  -->
+
+<!-- Two courses from Computer Science Center.
 
 ## Methods
 
-## Data structures
+## Data structures -->
 
 TODO: add all problem links
 
-# Leetcode
+<!-- # Leetcode
 
 TODO: add all problem links and **solutions**
 
@@ -82,6 +84,6 @@ TODO: add all problem links and **solutions**
 
 ## Graphs
 TODO: add all problem links
-	
+	 -->
 
 <!-- https://www.youtube.com/watch?v=dZ_6MS14Mg4 -->

@@ -21,7 +21,5 @@ class Solution:
         if not s or not t:
             return False
         
-        return (s.val == t.val and 
-                    self.isSame(s.left, t.left) and 
-                    self.isSame(s.right, t.right))
+        return (s.val == t.val and self.isSame(s.left, t.left) and self.isSame(s.right, t.right))
         
