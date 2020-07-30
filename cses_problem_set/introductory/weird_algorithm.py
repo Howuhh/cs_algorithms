@@ -1,5 +1,5 @@
 
-def solve(n):
+def weird_algo(n):
     seq = [n]
 
     while n != 1:
@@ -13,7 +13,7 @@ def solve(n):
 
 def main():
     n = int(input())
-    print(*solve(n))
+    print(*weird_algo(n))
 
 
 if __name__ == "__main__":
