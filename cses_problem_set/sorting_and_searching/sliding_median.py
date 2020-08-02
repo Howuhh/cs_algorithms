@@ -1,104 +1,65 @@
-from collections import deque
-from heapq import heappop, heappush
+import sys
+
+from heapq import heappush, heappop, heappushpop, heapify
+from heapq import _siftup, _siftdown
+
+# https://stackoverflow.com/questions/15319561/how-to-implement-a-median-heap
+def update_heaps(min_heap, max_heap, value):
+    # if value > curr median -> min heap, else max heap
+    heappush(max_heap, -heappushpop(min_heap, value))
+    
+    if len(max_heap) > len(min_heap):
+        heappush(min_heap, -heappop(max_heap))
 
 
-# def update_heaps(min_heap, max_heap, value):
-#     # push
-#     if len(min_heap) == 0 or value < min_heap[-1]:
-#         heappush(min_heap, value)
-#     else:
-#         heappush(max_heap, -1 * value)
-
-#     # rebalance
-#     if len(min_heap) - len(max_heap) > 1:
-#         heappush(max_heap, -1 * heappop(min_heap))
-#     else:
-#         heappush(min_heap, -1 * heappop(max_heap))
+def get_median(min_heap, max_heap):
+    if len(min_heap) > len(max_heap):
+        return min_heap[0]
+    else:
+        return -max_heap[0]
 
 
-# def get_median(min_heap, max_heap):
-#     if len(min_heap) == len(max_heap):
-#         return min_heap[-1]
-#     else:
-#         return max_heap[-1]
+def remove_from_heap(heap, value):
+    # time limit due to this
+    index = heap.index(value)
+
+    heap[index], heap[-1] = heap[-1], heap[index]
+    
+    heap.pop()
+    # check for leaf
+    if index < len(heap):
+        _siftup(heap, index)
+        _siftdown(heap, 0, index)
 
 
-# def sliding_median(nums, w_size):
-#     medians = []
+def remove_from_heaps(min_heap, max_heap, value):
+    if value >= min_heap[0]:
+        remove_from_heap(min_heap, value)
+    else:
+        remove_from_heap(max_heap, -value)
 
-#     min_heap = []  # for max values
-#     max_heap = []  # for min values
 
-#     for i in range(nums):
+def sliding_median(nums, w):
+    min_heap, max_heap = [], []
+
+    for i in range(w):
+        update_heaps(min_heap, max_heap, nums[i])
+
+    for i in range(w, len(nums)):
+        sys.stdout.write(str(get_median(min_heap, max_heap)) + " ")
         
-
-
-
+        update_heaps(min_heap, max_heap, nums[i])
+        remove_from_heaps(min_heap, max_heap, nums[i - w])
+        
+    print(get_median(min_heap, max_heap))
 
 
 def main():
-    n, w = map(int, input().split())
-    nums = [int(i) for i in input().split()]
+    n, w = map(int, sys.stdin.readline().split())
+    nums = [int(i) for i in sys.stdin.readline().split()]
 
-    # print(nums)
     sliding_median(nums, w)
-
-
 
 
 if __name__ == "__main__":
     main()
-
-
-
-# # TODO: not solved, approach with heaps (??)
-# def partition(nums, l, r):
-#     x, j = nums[l], l
-
-#     for i in range(l + 1, r + 1):
-#         if nums[i] < x:
-#             j = j + 1
-#             nums[j], nums[i] = nums[j], nums[i]
-
-#     nums[l], nums[j] = nums[j], nums[l] 
-#     return j
-
-
-# def quick_select(nums, k):
-#     left, right = 0, len(nums) - 1
-
-#     while left <= right:
-#         pivot = partition(nums, left, right)
-
-#         if pivot == len(nums) - k:
-#             return nums[pivot]
-#         elif pivot < len(nums) - k:
-#             left = pivot + 1
-#         else:
-#             right = pivot - 1
-
-
-# def median(nums):
-#     if len(nums) % 2 != 0:
-#         return quick_select(nums, (len(nums) // 2) + 1)
-#     else:
-#         return min(
-#             quick_select(nums, (len(nums) // 2) + 1),
-#             quick_select(nums, (len(nums) // 2) - 1 + 1)
-#             )
-
-
-# def sliding_median(nums, w):
-#     # n - k + 1
-#     queue = deque(sorted(nums[:w]))
-
-#     for i in range(w, len(nums)):
-#         window = queue.copy()
-        
-#         print(median(window), end=" ")
-        
-#         queue.popleft()
-#         queue.append(nums[i])
-
-#     window = queue.copy()
-#     print(median(window))
