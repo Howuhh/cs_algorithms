@@ -1,18 +1,24 @@
+import heapq
 
 
 # likely will not work, so what about heaps? - not work!
 def max_films(times, k):
+    heap = []
+
     count = 0
-    attend = k
-
-    for time in times:
-        if time[1] and attend:
-            attend = attend - 1
-            count = count + 1
-        elif not time[1]:
-            if attend < k:
-                attend = attend + 1
-
+    for start, end in times:
+        # print(heap)
+        if heap and start >= heap[0]:
+            # print(heap)
+            pop_end = heapq.heappop(heap)
+            # print(f"Remove: {(pop_end)}", count)
+            
+        # print(heap)
+        if len(heap) < k:
+            heapq.heappush(heap, end)
+            count += 1
+            # print(f"Add: {(start, end)}", count)
+    
     return count
 
 
@@ -20,13 +26,12 @@ def main():
     n, k = map(int, input().split())
     times = []
 
-    for _ in range(n):
+    for i in range(n):
         s, e = map(int, input().split())
-        times.append((s, True))
-        times.append((e, False))
+        times.append((s, e))
 
-    times.sort()
-
+    times.sort(key=lambda tup: tup[1])
+    print(times)
     print(max_films(times, k))
 
 

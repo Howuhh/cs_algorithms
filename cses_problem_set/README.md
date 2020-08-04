@@ -49,7 +49,7 @@ Problem | Solution
 [Subarray Sums II](https://cses.fi/problemset/task/1661) | [solution](sorting_and_searching/subarray_sums.py)
 [Subarray Divisibility](https://cses.fi/problemset/task/1662) | [solution](sorting_and_searching/subarray_divisibility.py)
 [Array Division](https://cses.fi/problemset/task/1085) | [solution](sorting_and_searching/array_division.py)
-[Sliding Median](https://cses.fi/problemset/task/1076) | solution
+[Sliding Median](https://cses.fi/problemset/task/1076) | [solution](sorting_and_searching/sliding_median.py)
 [Sliding Cost](https://cses.fi/problemset/task/1077) | solution
 [Movie Festival II](https://cses.fi/problemset/task/1632) | solution
 [Maximum Subarray Sum II](https://cses.fi/problemset/task/1644) | solution
