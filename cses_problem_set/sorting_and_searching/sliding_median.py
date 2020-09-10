@@ -38,7 +38,6 @@ def remove_from_heaps(min_heap, max_heap, value):
     else:
         remove_from_heap(max_heap, -value)
 
-
 def sliding_median(nums, w):
     min_heap, max_heap = [], []
 
@@ -47,7 +46,6 @@ def sliding_median(nums, w):
 
     for i in range(w, len(nums)):
         sys.stdout.write(str(get_median(min_heap, max_heap)) + " ")
-        
         update_heaps(min_heap, max_heap, nums[i])
         remove_from_heaps(min_heap, max_heap, nums[i - w])
         
